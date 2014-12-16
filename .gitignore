@@ -57,4 +57,5 @@ target/
 
 venv/
 .idea/
+apiKey.properties
 
