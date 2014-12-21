@@ -1,5 +1,5 @@
 from datetime import datetime
-
+#hi
 from flask import (
     Flask,
     abort,
@@ -37,6 +37,11 @@ def show_posts():
 
     posts = sorted(posts, key=lambda k: k['date'], reverse=True)
     return render_template('show_posts.html', posts=posts)
+
+
+@app.route('/add_page')
+def add_post_page():
+    return render_template('add_post_page.html')
 
 
 @app.route('/add', methods=['POST'])
