@@ -57,6 +57,6 @@ target/
 
 venv/
 .idea/
-apiKey.properties
+apiKey*.properties
 login.txt
 
