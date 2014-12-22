@@ -2,7 +2,7 @@
 {% block body %}
   {% if user.email %}
     {{ user.group }}
-    <a href="{{ url_for('add_post_page') }}">Add a post</a>
+    <a href="{{ url_for('upload') }}">Add a post</a>
   {% endif %}
   <ul class=entries>
   {% for post in posts %}

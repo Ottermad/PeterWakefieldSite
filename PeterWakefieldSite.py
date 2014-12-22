@@ -19,6 +19,7 @@ from flask.ext.stormpath import (
     login_user,
     logout_user,
     user,
+    groups_required
 )
 
 from werkzeug import secure_filename
@@ -30,7 +31,7 @@ import os
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'some_really_long_random_string_here'
-app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-4MZ54I1K38YA2R9I79B0URMRN.properties'
+app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-695ZMS0M2C6JBHX0W7G4UR9BI.properties'
 app.config['STORMPATH_APPLICATION'] = 'PeterWakefieldSite'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -59,9 +60,9 @@ def show_post(name):
         post.append(html_content)
     return render_template("post.html", post=post)
 
-@app.route('/add_page')
+'''@app.route('/add_page')
 def add_post_page():
-    return render_template('add_post_page.html')
+    return render_template('add_post_page.html')'''
 
 
 def allowed_file(filename):
@@ -69,8 +70,8 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route('/upload', methods=['GET', 'POST'])
-@login_required
-def upload_file():
+@groups_required(["Admins"])
+def upload():
     if request.method == 'POST':
         file = request.files['file']
         if file and allowed_file(file.filename):
