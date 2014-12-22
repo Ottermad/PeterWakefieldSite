@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 {% block body %}
   {% if user.email %}
+    {{ user.group }}
     <a href="{{ url_for('add_post_page') }}">Add a post</a>
   {% endif %}
   <ul class=entries>
   {% for post in posts %}
-    <li><h2>{{ post['title'] }}</h2>{{ post['text']|safe }}
+    <li><h2><a href="post/{{ post[0] }}">{{ post[0] }}</a></h2></li>
   {% else %}
-    <li><em>Unbelievable. No posts here so far!</em>
+    <li><em>Unbelievable. No posts here so far!</em></li>
   {% endfor %}
   </ul>
 {% endblock %}
