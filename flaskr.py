@@ -23,7 +23,7 @@ from flask.ext.stormpath import (
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'some_really_long_random_string_here'
-app.config['STORMPATH_API_KEY_FILE'] = 'apiKey.properties'
+app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-4MZ54I1K38YA2R9I79B0URMRN.properties'
 app.config['STORMPATH_APPLICATION'] = 'flaskr'
 
 stormpath_manager = StormpathManager(app)
