@@ -6,6 +6,8 @@ from datetime import datetime
 
 import os
 
+import sendgrid
+
 import time
 
 import markdown
@@ -89,12 +91,29 @@ def about():
     g.url = URL
     return render_template('about.html')
 
-# Home page
+# Contact page
 @app.route('/contact')
 def contact():
     g.posts = get_posts()
     g.url = URL
     return render_template('contact.html')
+
+# Email Sender
+@app.route('/send', methods=['POST'])
+def send():
+    sendgrid_object = sendgrid.SendGridClient("Ottermad", "OttersR0ck")
+    message = sendgrid.Mail()
+    sender = request.form["email"]
+    subject = request.form["subject"]
+    body = request.form["emailbody"]
+    message.add_to("charlie.thomas@attwoodthomas.net")
+    message.set_from(sender)
+    message.set_subject(subject)
+    message.set_html(body)
+
+    sendgrid_object.send(message)
+    flash('Email sent.')
+    return redirect(url_for('contact'))
 
 # Story listing page
 @app.route('/stories')
@@ -114,7 +133,6 @@ def show_post(name):
     pipe = Popen("w2m '{}{}'".format(STORY_FOLDER, post[0]), shell=True, stdout=PIPE).stdout
     markdown_content = pipe.read()
     html_content = markdown.markdown(markdown_content).translate({ord(k):None for k in u'`'})
-    print html_content
     safe_html_content = Markup(html_content)
     post.append(safe_html_content)
     return render_template("post.html", post=post, posts=posts)
