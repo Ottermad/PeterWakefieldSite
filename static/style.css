@@ -57,7 +57,7 @@ p {
     padding: 0px;
     margin: 0px;
     background: transparent center center no-repeat;
-    background-image: url("//material-design.storage.googleapis.com/images/hamburger.svg");
+    /*background-image: url("//material-design.storage.googleapis.com/images/hamburger.svg");*/
 }
 
 #SideBar {
