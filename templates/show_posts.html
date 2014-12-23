@@ -5,8 +5,8 @@
     <a href="{{ url_for('upload') }}">Add a post</a>
   {% endif %}
   <ul class=entries>
-  {% for post in posts %}
-    <li><h2><a href="post/{{ post[0] }}">{{ post[0] }}</a></h2></li>
+  {% for post in g.posts %}
+    <li><h2><a href="post/{{ post[0] }}">{{ post[0][:-4] }}</a></h2></li>
   {% else %}
     <li><em>Unbelievable. No posts here so far!</em></li>
   {% endfor %}

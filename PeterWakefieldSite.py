@@ -1,6 +1,19 @@
+# Main file for Site
+
+# Import statements
+
 from datetime import datetime
+
 import os
+
 import time
+
+import markdown
+
+import codecs
+
+from werkzeug import secure_filename
+
 from flask import (
     Flask,
     abort,
@@ -10,7 +23,9 @@ from flask import (
     request,
     url_for,
     Markup,
+    g,
 )
+
 from flask.ext.stormpath import (
     StormpathError,
     StormpathManager,
@@ -22,66 +37,90 @@ from flask.ext.stormpath import (
     groups_required
 )
 
-from werkzeug import secure_filename
-UPLOAD_FOLDER = 'stories/'
-ALLOWED_EXTENSIONS = set(['html'])
+# Constants
+STORY_FOLDER = 'stories/'  # When deploying change to absolute path
+ALLOWED_EXTENSIONS = set(['txt'])
+URL = "http://127.0.0.1:5000/post/"
 
-import os
-
+# App Settings
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = 'some_really_long_random_string_here'
-app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-695ZMS0M2C6JBHX0W7G4UR9BI.properties'
+app.config['SECRET_KEY'] = 'some_really_long_random_string_here'# comment out when deploying
+app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-695ZMS0M2C6JBHX0W7G4UR9BI.properties'# When deploying change to absolute path
 app.config['STORMPATH_APPLICATION'] = 'PeterWakefieldSite'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['UPLOAD_FOLDER'] = STORY_FOLDER
 
 stormpath_manager = StormpathManager(app)
+
+# Non-route functions
 
 def get_key(a_list):
     return a_list[1]
 
-@app.route('/')
-def show_posts():
-    posts = os.listdir("stories")
-    posts_with_time_from_epoch = []
-    for post in posts:
-        posts_with_time_from_epoch.append([post, os.path.getmtime("stories/" + post)])
-    sorted_posts = sorted(posts_with_time_from_epoch, key=get_key, reverse=True)
-
-    return render_template('show_posts.html', posts=sorted_posts)
-
-@app.route("/post/<name>")
-def show_post(name):
-    post = []
-    post.append(name)
-    with file("stories/" + name) as f:
-        content = f.read()
-        html_content = Markup(content)
-        post.append(html_content)
-    return render_template("post.html", post=post)
-
-'''@app.route('/add_page')
-def add_post_page():
-    return render_template('add_post_page.html')'''
-
-
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+def get_posts():
+    posts = os.listdir(STORY_FOLDER)
+    posts_with_time_from_epoch = []
+    for post in posts:
+        posts_with_time_from_epoch.append([post, os.path.getmtime(STORY_FOLDER + post)])
+    sorted_posts = sorted(posts_with_time_from_epoch, key=get_key, reverse=True)
+    return sorted_posts
 
+# Routes
+
+# Home page
+@app.route('/')
+def home():
+    g.posts = get_posts()
+    g.url = URL
+    return render_template('home.html')
+
+# Story listing page
+@app.route('/stories')
+def show_posts():
+    g.posts = get_posts()
+    g.url = URL
+    return render_template('show_posts.html')
+
+# Page for individual story
+@app.route("/post/<name>")
+def show_post(name):
+    g.url = URL
+    g.posts = get_posts()
+    posts = get_posts()
+    post = []
+    post.append(name)
+    input_file = codecs.open(STORY_FOLDER + post[0], mode="r", encoding="utf-8")
+    text = input_file.read()
+    html_content = markdown.markdown(text)
+    safe_html_content = Markup(html_content)
+    post.append(safe_html_content)
+    return render_template("post.html", post=post, posts=posts)
+
+# Route for uploading Story
 @app.route('/upload', methods=['GET', 'POST'])
+@login_required
 @groups_required(["Admins"])
 def upload():
+    g.url = URL
+    g.posts = get_posts()
+    # Check request method
     if request.method == 'POST':
         file = request.files['file']
+        # Check if file is valid
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('show_posts'))
     return render_template('upload.html')
 
+# Login using stormpath
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    g.url = URL
+    g.posts = get_posts()
     error = None
 
     if request.method == 'POST':
@@ -100,8 +139,11 @@ def login():
     return render_template('login.html', error=error)
 
 
+# Logout route
 @app.route('/logout')
 def logout():
+    g.url = URL
+    g.posts = get_posts()
     logout_user()
     flash('You were logged out.')
 

@@ -59,4 +59,10 @@ venv/
 .idea/
 apiKey*.properties
 login.txt
+docx2html/
+base_files/
+old_stories/
+convet.py
+markdown_to_html_test.py
+test.py
 

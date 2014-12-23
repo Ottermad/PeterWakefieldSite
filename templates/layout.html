@@ -1,17 +1,62 @@
 <!DOCTYPE html>
-<title>Flaskr</title>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-<div class=page>
-  <h1>Flaskr</h1>
-  <div class=metanav>
-  {% if user.email %}
-    <a href="{{ url_for('logout') }}">log out</a>
-  {% else %}
-    <a href="{{ url_for('login') }}">log in</a>
-  {% endif %}
-  </div>
-  {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
-  {% endfor %}
-  {% block body %}{% endblock %}
-</div>
+<html>
+    <head>
+        <title>Peter Wakefield | Home</title>
+        <meta charset="utf-8">
+        <!--Stylesheets-->
+        <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link href='http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif' rel='stylesheet' type='text/css'>
+        <!--Scripts-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css" />
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+        <script src="{{ url_for('static', filename='sidebar.js') }}"></script>
+    </head>
+
+    <body>
+        <button id="SideToggle" role="tab" aria-expanded="false"></button>
+        <div id="Titlebox">
+            Peter Wakefield
+        </div>
+        <div class=metanav>
+
+          </div>
+
+        <aside id="SideBar">
+            <ul>
+                <li id="HomeNav"><a href="{{ url_for('home') }}">Home</a></li>
+
+                {% if user.email %}
+                    <li><a href="{{ url_for('upload') }}">Add a post</a></li>
+                {% endif %}
+
+                {% if user.email %}
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Log In</a></li>
+                {% endif %}
+
+                <li id="StoriesNav"> <a href="{{ url_for('show_posts') }}">Stories</a>
+                    <ul id="StoriesNavList">
+                      {% for post in g.posts %}
+                        <li><a href="{{ g.url }}{{ post[0] }}">{{ post[0][:-4] }}</a></li>
+                      {% else %}
+                        <li><em>Unbelievable. No posts here so far!</em></li>
+                      {% endfor %}
+                    </ul>
+                </li>
+                <li id="AboutNav"><a href="#">About</a></li>
+                <li id="ContactNav"><a href="#">Contact</a></li>
+                <li>&nbsp;</li>
+                <li id="Copyright">&copy; Peter Wakefield</li>
+            </ul>
+        </aside>
+        <div id="Content">
+            {% for message in get_flashed_messages() %}
+                <div class=flash>{{ message }}</div>
+            {% endfor %}
+            {% block body %}{% endblock %}
+            <footer style="display:block; width: 98%; clear:both; text-align: center; padding: 1%;">&copy; Peter Wakefield 2015</footer>
+        </div>
+    </body>
+</html>
