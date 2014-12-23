@@ -77,6 +77,20 @@ def home():
     g.url = URL
     return render_template('home.html')
 
+# Home page
+@app.route('/about')
+def about():
+    g.posts = get_posts()
+    g.url = URL
+    return render_template('about.html')
+
+# Home page
+@app.route('/contact')
+def contact():
+    g.posts = get_posts()
+    g.url = URL
+    return render_template('contact.html')
+
 # Story listing page
 @app.route('/stories')
 def show_posts():

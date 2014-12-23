@@ -1,9 +1,5 @@
 {% extends "layout.html" %}
 {% block body %}
-  {% if user.email %}
-    {{ user.group }}
-    <a href="{{ url_for('upload') }}">Add a post</a>
-  {% endif %}
   <ul class=entries>
   {% for post in g.posts %}
     <li><h2><a href="post/{{ post[0] }}">{{ post[0][:-4] }}</a></h2></li>
