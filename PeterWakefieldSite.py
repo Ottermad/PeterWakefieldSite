@@ -14,6 +14,8 @@ import codecs
 
 from werkzeug import secure_filename
 
+from subprocess import Popen, PIPE
+
 from flask import (
     Flask,
     abort,
@@ -39,7 +41,8 @@ from flask.ext.stormpath import (
 
 # Constants
 STORY_FOLDER = 'stories/'  # When deploying change to absolute path
-ALLOWED_EXTENSIONS = set(['txt'])
+DOCX_FOLDER = 'docxs/'
+ALLOWED_EXTENSIONS = set(['txt', 'docx'])
 URL = "http://127.0.0.1:5000/post/"
 
 # App Settings
@@ -48,7 +51,7 @@ app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'some_really_long_random_string_here'# comment out when deploying
 app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-695ZMS0M2C6JBHX0W7G4UR9BI.properties'# When deploying change to absolute path
 app.config['STORMPATH_APPLICATION'] = 'PeterWakefieldSite'
-app.config['UPLOAD_FOLDER'] = STORY_FOLDER
+app.config['UPLOAD_FOLDER'] = DOCX_FOLDER
 
 stormpath_manager = StormpathManager(app)
 
@@ -60,6 +63,7 @@ def get_key(a_list):
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 def get_posts():
     posts = os.listdir(STORY_FOLDER)
     posts_with_time_from_epoch = []
@@ -67,6 +71,7 @@ def get_posts():
         posts_with_time_from_epoch.append([post, os.path.getmtime(STORY_FOLDER + post)])
     sorted_posts = sorted(posts_with_time_from_epoch, key=get_key, reverse=True)
     return sorted_posts
+
 
 # Routes
 
@@ -106,9 +111,9 @@ def show_post(name):
     posts = get_posts()
     post = []
     post.append(name)
-    input_file = codecs.open(STORY_FOLDER + post[0], mode="r", encoding="utf-8")
-    text = input_file.read()
-    html_content = markdown.markdown(text)
+    pipe = Popen("w2m '{}{}'".format(STORY_FOLDER, post[0]), shell=True, stdout=PIPE).stdout
+    markdown_content = pipe.read()
+    html_content = markdown.markdown(markdown_content)
     safe_html_content = Markup(html_content)
     post.append(safe_html_content)
     return render_template("post.html", post=post, posts=posts)
@@ -127,6 +132,13 @@ def upload():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            pipe = Popen("sudo w2m '{}{}'".format(DOCX_FOLDER, filename), shell=True, stdout=PIPE).stdout
+            output = pipe.read()
+            print filename, DOCX_FOLDER
+            new_filename = filename[:-5]
+            fname = "{}{}.txt".format(STORY_FOLDER,new_filename)
+            with open(fname, 'w') as fout:
+                fout.write(output)
             return redirect(url_for('show_posts'))
     return render_template('upload.html')
 
