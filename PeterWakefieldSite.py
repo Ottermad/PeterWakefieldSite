@@ -113,7 +113,8 @@ def show_post(name):
     post.append(name)
     pipe = Popen("w2m '{}{}'".format(STORY_FOLDER, post[0]), shell=True, stdout=PIPE).stdout
     markdown_content = pipe.read()
-    html_content = markdown.markdown(markdown_content)
+    html_content = markdown.markdown(markdown_content).translate({ord(k):None for k in u'`'})
+    print html_content
     safe_html_content = Markup(html_content)
     post.append(safe_html_content)
     return render_template("post.html", post=post, posts=posts)
