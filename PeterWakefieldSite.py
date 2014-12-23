@@ -132,7 +132,7 @@ def upload():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            pipe = Popen("sudo w2m '{}{}'".format(DOCX_FOLDER, filename), shell=True, stdout=PIPE).stdout
+            pipe = Popen("w2m '{}{}'".format(DOCX_FOLDER, filename), shell=True, stdout=PIPE).stdout
             output = pipe.read()
             print filename, DOCX_FOLDER
             new_filename = filename[:-5]
