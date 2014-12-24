@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% block title %}{{ super() }}{% endblock %}
 {% block body %}
     {% if user.email %}
         <h2>Upload new File</h2>

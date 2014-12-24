@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% block title %}{{ super() }}{% endblock %}
 {% block body %}
   <ul class=entries>
   {% for post in g.posts %}
