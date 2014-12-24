@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block body %}
+
+  <div class="story">
+    <h2>{{ post[0][:-4] }}</h2>
+    {{ post[1] }}
+  </div>
+
+{% endblock %}
