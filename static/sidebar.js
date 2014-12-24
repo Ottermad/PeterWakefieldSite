@@ -4,15 +4,10 @@ var contentResize = true;
 
 $(document).ready(function(){
     $(window).resize(function() {
-        $("#SideBar").height(window.innerHeight - $("#Titlebox").height());
-        $("#Content").height((window.innerHeight - $("#Titlebox").height()) - (window.innerHeight/100));
-        $("#SideToggle").height($("#Titlebox").height());
-        $("#SideToggle").width($("#SideToggle").height());
-        $("#Titlebox").css({textIndent: $("#SideToggle").width()})
+        resize();
     });
-    
-    $(window).resize();
-    
+    resize();
+    //Sidebar
     $("#SideToggle").click(function(){
         if (sidebarOut){
             $("#SideBar").hide("slide", { direction: "left" }, 500,function(){
@@ -33,27 +28,29 @@ $(document).ready(function(){
             }
             sidebarOut = true;
         }
-    }); 
+    });
+    //Stories list
+    $("#StoryNavToggle").click(function(){
+      console.log($("#StoriesNavList").css("display"));
+      var displayed = ($("#StoriesNavList").css("display") == "none");
+      $("#StoriesNavList").toggle(500);
+      if (!displayed){
+          $("#StoryNavToggle").text("(Show)");
+      }
+      else {
+          $("#StoryNavToggle").text("(Hide)");
+      }
+    });
 });
 
 function percentage (total, percent){
     return (total / 100) * percent;
 }
 
-function checkSidebar() {
-    if (sidebarOut) {
-        $("#SideBar").show("slide", { direction: "left" }, 500,function(){
-            if (contentResize){
-                $("#Content").animate({width: contentWidth},500);
-            }
-        });
-    }
-    else {
-        $("#SideBar").hide("slide", { direction: "left" }, 500,function(){
-            if (contentResize){
-                $("#Content").animate({width: "99%"},500);
-            }
-            sidebarOut = false;
-        });
-    }
+function resize(){
+  $("#SideBar").height(window.innerHeight - $("#Titlebox").height());
+  $("#Content").height((window.innerHeight - $("#Titlebox").height()) - (window.innerHeight/100));
+  $("#SideToggle").height($("#Titlebox").height());
+  $("#SideToggle").width($("#SideToggle").height());
+  $("#Titlebox").css({textIndent: $("#SideToggle").width()})
 }

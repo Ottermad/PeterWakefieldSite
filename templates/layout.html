@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{% block title %}Peter Wakefield | Home{% endblock %}</title>
+        <title>Peter Wakefield |{% block title %} Home{% endblock %}</title>
         <meta charset="utf-8">
         <!--Stylesheets-->
         <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -36,7 +36,11 @@
                     <li><a href="{{ url_for('login') }}">Log In</a></li>
                 {% endif %}
 
-                <li id="StoriesNav"> <a href="{{ url_for('show_posts') }}">Stories</a>
+                <li id="StoriesNav">
+                  <a href="{{ url_for('show_posts') }}">Stories</a>
+                  <a id="StoryNavToggle">
+                    (Hide)
+                  </a>
                     <ul id="StoriesNavList">
                       {% for post in g.posts %}
                         <li><a href="{{ g.url }}{{ post[0] }}">{{ post[0][:-4] }}</a></li>
