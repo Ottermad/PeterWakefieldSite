@@ -79,6 +79,10 @@ p {
     line-height: 1.5em;
 }
 
+#StoryNavToggle{
+  color: #1976D2;
+}
+
 #Copyright {
 }
 
