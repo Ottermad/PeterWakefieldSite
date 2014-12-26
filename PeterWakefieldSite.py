@@ -130,10 +130,11 @@ def show_post(name):
     posts = get_posts()
     post = []
     post.append(name)
-    pipe = Popen("w2m '{}{}'".format(STORY_FOLDER, post[0]), shell=True, stdout=PIPE).stdout
-    markdown_content = pipe.read()
+    #pipe = Popen("w2m '{}{}'".format(STORY_FOLDER, post[0]), shell=True, stdout=PIPE).stdout
+    #markdown_content = pipe.read()
+    with open("{}{}".format(STORY_FOLDER, post[0]), "r") as content_file:
+        markdown_content = content_file.read()
     unicode_content =  markdown_content.decode("utf-8")
-    print unicode_content
     html_content = markdown.markdown(unicode_content)
     safe_html_content = Markup(html_content)
     post.append(safe_html_content)
