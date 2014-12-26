@@ -41,6 +41,8 @@ from flask.ext.stormpath import (
     groups_required
 )
 
+import re
+
 # Constants
 STORY_FOLDER = 'stories/'  # When deploying change to absolute path
 DOCX_FOLDER = 'docxs/'
@@ -70,7 +72,8 @@ def get_posts():
     posts = os.listdir(STORY_FOLDER)
     posts_with_time_from_epoch = []
     for post in posts:
-        posts_with_time_from_epoch.append([post, os.path.getmtime(STORY_FOLDER + post)])
+        post_with_spaces = re.sub('_', ' ', post)
+        posts_with_time_from_epoch.append([post_with_spaces, os.path.getmtime(STORY_FOLDER + post)])
     sorted_posts = sorted(posts_with_time_from_epoch, key=get_key, reverse=True)
     return sorted_posts
 
