@@ -38,9 +38,9 @@
 
                 <li id="StoriesNav">
                   <a href="{{ url_for('show_posts') }}">Stories</a>
-                  <button id="StoryNavToggle">
+                  <a id="StoryNavToggle" href="#">
                     (Hide)
-                  </button>
+                  </a>
                     <ul id="StoriesNavList">
                       {% for post in g.posts %}
                         <li><a href="{{ g.url }}{{ post[0] }}">{{ post[0][:-4] }}</a></li>
