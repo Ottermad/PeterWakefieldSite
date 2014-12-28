@@ -1,3 +1,5 @@
-.story{
-  
+.story h1 {
+    color: #424242;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 2.5em;
 }

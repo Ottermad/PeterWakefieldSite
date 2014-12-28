@@ -16,7 +16,6 @@ a:hover {
 .Title {
     color: #424242;
     font-family: 'Noto Sans', sans-serif;
-    font-size: 2.5em;
 }
 
 p {
@@ -57,7 +56,7 @@ p {
     padding: 0px;
     margin: 0px;
     background: transparent center center no-repeat;
-    /*background-image: url("//material-design.storage.googleapis.com/images/hamburger.svg");*/
+    background-image: url("//material-design.storage.googleapis.com/images/hamburger.svg");
 }
 
 #SideBar {
@@ -70,6 +69,8 @@ p {
     color: #212121;
     font-family: 'Noto Serif', sans-serif;
     opacity: 50%;
+    overflow-y: auto;
+    overflow-x:visible;
 }
 
 #SideBar ul {
@@ -83,6 +84,15 @@ p {
   color: #1976D2;
 }
 
+
+#StoriesNavList > li{
+    padding-bottom: 13px;
+}
+
+ul {
+    list-style-type: none;
+}
+
 #Copyright {
 }
 
@@ -93,5 +103,5 @@ p {
     padding-left: 0.5%;
     padding-right: 0.5%;
     float:right;
-    overflow: scroll;
+    overflow: auto;
 }

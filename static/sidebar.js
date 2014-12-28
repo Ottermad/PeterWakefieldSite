@@ -52,5 +52,5 @@ function resize(){
   $("#Content").height((window.innerHeight - $("#Titlebox").height()) - (window.innerHeight/100));
   $("#SideToggle").height($("#Titlebox").height());
   $("#SideToggle").width($("#SideToggle").height());
-  $("#Titlebox").css({textIndent: $("#SideToggle").width()})
+  $("#Titlebox").css({textIndent: $("#SideToggle").width()});
 }
