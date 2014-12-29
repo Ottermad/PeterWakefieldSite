@@ -1,4 +1,4 @@
-input[type='submit'], #FileInputButton, #DeleteButton {
+input[type='submit'], #FileInputButton {
     background-color: #26A69A;
     border: 0px;
     border-radius: 2px;
@@ -16,24 +16,13 @@ input[type='submit'], #FileInputButton, #DeleteButton {
     transition: all 0.3s ease-in-out;     
 }
 
-input[type='submit']:hover, #FileInputButton:hover, #DeleteButton:hover {
-    text-decoration: none;
-    box-shadow: 0px 2px 5px #4a4a4a; 
+input[type='submit']:hover, #FileInputButton:hover {
+    box-shadow: 0px 1px 10px #6a6a6a; 
     -webkit-transition: all 0.3s ease-in-out;
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;  
-}
-
-#DeleteButton {
-    display: inline-block;
-    background-color: #F44336;
-}
-
-.entries h2 {
-    display: inline-block;
-    padding-right: 5px;
 }
 
 #emailForm {

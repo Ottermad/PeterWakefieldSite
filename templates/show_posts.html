@@ -2,6 +2,7 @@
 {% block title %}{{ super() }}{% endblock %}
 {% block body %}
 <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='story.css') }}">
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
   <h1 class="Title">Stories</h1>
   <ul class="entries">
   {% for post in g.posts %}
@@ -11,7 +12,7 @@
           {{ post[0][:-4] }}
         </a>
       </h2>
-      <a href="{{ url_for('delete', story=post[2]) }}">Delete Me</a>
+      <a id="DeleteButton" href="{{ url_for('delete', story=post[2]) }}">Delete Me</a>
     </li>
   {% else %}
     <li><em>Unbelievable. No posts here so far!</em></li>
