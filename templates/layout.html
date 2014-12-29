@@ -43,7 +43,7 @@
                   </a>
                     <ul id="StoriesNavList">
                       {% for post in g.posts %}
-                        <li><a href="{{ g.url }}{{ post[0] }}">{{ post[0][:-4] }}</a></li>
+                        <li><a href="{{ g.url }}{{ post[2] }}">{{ post[0][:-4] }}</a></li>
                       {% else %}
                         <li><em>Unbelievable. No posts here so far!</em></li>
                       {% endfor %}
