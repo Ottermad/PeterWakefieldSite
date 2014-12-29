@@ -52,7 +52,6 @@
                 <li id="AboutNav"><a href="{{ url_for('about') }}">About</a></li>
                 <li id="ContactNav"><a href="{{ url_for('contact') }}">Contact</a></li>
                 <li>&nbsp;</li>
-                <li id="Copyright">&copy; Peter Wakefield</li>
             </ul>
         </aside>
         <div id="Content">
@@ -60,7 +59,7 @@
                 <div class=flash>{{ message }}</div>
             {% endfor %}
             {% block body %}{% endblock %}
-            <footer style="display:block; width: 98%; clear:both; text-align: center; padding: 1%;">&copy; Peter Wakefield 2015</footer>
+            <footer id="copyright" style="display:block; width: 98%; clear:both; text-align: center; padding: 1%;">&copy; Peter Wakefield 2015</footer>
         </div>
     </body>
 </html>

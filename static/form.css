@@ -1,0 +1,27 @@
+input[type='submit'], #FileInputButton {
+    background-color: #26A69A;
+    border: 0px;
+    border-radius: 2px;
+    font-size: 1.1em;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: 0px 1px 2px #6a6a6a;
+    color: #EEEEEE;
+    font-family: 'Noto Sans', sans-serif;   
+}
+
+#emailForm {
+    text-align: left;
+}
+
+#FileNameDisplay{
+    font-family: 'Noto Sans', sans-serif; 
+    color: #616161;
+    padding-right: 10px;
+}
+
+input[type='file']{
+    width: 0px;
+    height: 0px;
+}

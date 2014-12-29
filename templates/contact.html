@@ -1,60 +1,18 @@
 {% extends "layout.html" %}
 {% block title %}{{ super() }}{% endblock %}
 {% block body %}
-  <h2>Contact</h2>
-        <form method="post" action="{{ url_for('send') }}">
-        <table class="">
-
-          <tr>
-
-            <th>
-              <label for="email">Your Email:</label>
-            </th>
-
-          </tr>
-
-          <tr>
-
-            <td>
-              <input type="email" id="email" name="email" placeholder="Enter your email address" />
-            </td>
-
-          </tr>
-
-          <tr>
-
-            <th>
-              <label for="subject">Subject:</label>
-            </th>
-
-          </tr>
-
-          <tr>
-
-            <td>
-              <input type="text" id="subject" name="subject" placeholder="Enter email's subject" />
-            </td>
-
-          </tr>
-
-          <tr>
-
-            <th>
-              <label for="emailbody">Body:</label>
-            </th>
-
-          </tr>
-
-          <tr>
-
-            <td>
-              <textarea id="emailbody" placeholder="Enter body of email" name="emailbody"></textarea>
-            </td>
-
-          </tr>
-
-        </table>
-
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
+  <h1 class="Title">Contact</h1>
+    <form id="emailForm" method="post" action="{{ url_for('send') }}">
+        <strong class="Title" for="email">Your Email:</strong> 
+        <input type="email" id="email" name="email" placeholder="Enter your email address" /> <br>
+        <br>
+        <strong class="Title" for="subject">Subject:</strong> 
+        <input type="text" id="subject" name="subject" placeholder="Enter email's subject" /> <br>
+        <br>
+        <strong class="Title" for="emailbody">Body:</strong> <br>
+        <textarea id="emailbody" placeholder="Enter body of email" name="emailbody"></textarea> <br>
+        <br>
         <input type="submit" value="Send email" />
 
     </form>

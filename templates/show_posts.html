@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 {% block title %}{{ super() }}{% endblock %}
 {% block body %}
-  <ul class=entries>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='story.css') }}">
+  <h1 class="Title">Stories</h1>
+  <ul class="entries">
   {% for post in g.posts %}
     <li><h2><a href="post/{{ post[0] }}">{{ post[0][:-4] }}</a></h2></li>
   {% else %}
