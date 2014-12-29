@@ -88,7 +88,7 @@ def home():
     g.url = URL
     return render_template('home.html')
 
-# Home page
+# About page
 @app.route('/about')
 def about():
     g.posts = get_posts()
@@ -142,6 +142,7 @@ def show_post(name):
     html_content = markdown.markdown(unicode_content)
     safe_html_content = Markup(html_content)
     post.append(safe_html_content)
+    post.append(re.sub(' ', '_', name))
     return render_template("post.html", post=post, posts=posts)
 
 # Route for uploading Story
@@ -167,6 +168,22 @@ def upload():
                 fout.write(output)
             return redirect(url_for('show_posts'))
     return render_template('upload.html')
+
+# Route for uploading Story
+@app.route('/delete/<story>', methods=['GET', 'POST'])
+@login_required
+@groups_required(["Admins"])
+def delete(story):
+    posts = os.listdir(STORY_FOLDER)
+    if story in posts:
+        try:
+            os.remove("{}/{}".format(STORY_FOLDER, story))
+            flash('Post deleted')
+        except:
+            flash("Error")
+    else:
+        flash('Story does not exist')
+    return redirect(url_for('show_posts'))
 
 # Login using stormpath
 @app.route('/login', methods=['GET', 'POST'])

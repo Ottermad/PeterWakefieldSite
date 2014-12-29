@@ -55,11 +55,13 @@
             </ul>
         </aside>
         <div id="Content">
-            {% for message in get_flashed_messages() %}
-                <div class=flash>{{ message }}</div>
-            {% endfor %}
             {% block body %}{% endblock %}
             <footer id="copyright" style="display:block; width: 98%; clear:both; text-align: center; padding: 1%;">&copy; Peter Wakefield 2015</footer>
         </div>
+        {% for message in get_flashed_messages() %}
+            <script>
+                alert("{{ message }}");
+            </script>
+        {% endfor %}
     </body>
 </html>
