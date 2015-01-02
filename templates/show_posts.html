@@ -12,7 +12,9 @@
           {{ post[0][:-4] }}
         </a>
       </h2>
+        {% if user.email %}
       <a id="DeleteButton" href="{{ url_for('delete', story=post[2]) }}">Delete Me</a>
+        {% endif %}
     </li>
   {% else %}
     <li><em>Unbelievable. No posts here so far!</em></li>
