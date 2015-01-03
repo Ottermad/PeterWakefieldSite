@@ -13,7 +13,11 @@
         </a>
       </h2>
         {% if user.email %}
+<<<<<<< HEAD
             <a id="DeleteButton" href="{{ url_for('delete', story=post[2]) }}">Delete Me</a>
+=======
+      <a id="DeleteButton" href="{{ url_for('delete', story=post[2]) }}">Delete Me</a>
+>>>>>>> b6fab453b1593000ae49179db632724ebca610bb
         {% endif %}
     </li>
   {% else %}
