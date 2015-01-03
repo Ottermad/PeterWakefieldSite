@@ -3,10 +3,10 @@ var contentWidth = "83.7%";
 var contentResize = true;
 
 $(document).ready(function(){
+    resize();
     $(window).resize(function() {
         resize();
     });
-    resize();
     //Sidebar
     $("#SideToggle").click(function(){
         if (sidebarOut){

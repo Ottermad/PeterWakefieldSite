@@ -28,6 +28,7 @@ from flask import (
     url_for,
     Markup,
     g,
+    session
 )
 
 from flask.ext.stormpath import (
@@ -200,7 +201,6 @@ def login():
             )
             login_user(_user, remember=True)
             flash('You were logged in.')
-
             return redirect(url_for('show_posts'))
         except StormpathError, err:
             error = err.message
@@ -215,7 +215,6 @@ def logout():
     g.posts = get_posts()
     logout_user()
     flash('You were logged out.')
-
     return redirect(url_for('show_posts'))
 
 
