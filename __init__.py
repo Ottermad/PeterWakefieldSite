@@ -45,16 +45,16 @@ from flask.ext.stormpath import (
 import re
 
 # Constants
-STORY_FOLDER = 'stories/'  # When deploying change to absolute path
-DOCX_FOLDER = 'docxs/'
+STORY_FOLDER = '/var/www/PeterWakefieldSite/PeterWakefieldSite/stories/'  # When deploying change to absolute path
+DOCX_FOLDER = '/var/www/PeterWakefieldSite/PeterWakefieldSite/docxs/'
 ALLOWED_EXTENSIONS = set(['txt', 'docx'])
-URL = "http://127.0.0.1:5000/post/"
+URL = "http://178.62.115.51/post/"
 
 # App Settings
 app = Flask(__name__)
-app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = 'some_really_long_random_string_here'# comment out when deploying
-app.config['STORMPATH_API_KEY_FILE'] = 'apiKey-695ZMS0M2C6JBHX0W7G4UR9BI.properties'# When deploying change to absolute path
+#app.config['DEBUG'] = True
+#app.config['SECRET_KEY'] = 'some_really_long_random_string_here'# comment out when deploying
+app.config['STORMPATH_API_KEY_FILE'] = '/var/www/PeterWakefieldSite/PeterWakefieldSite/apiKey-695ZMS0M2C6JBHX0W7G4UR9BI.properties'# When deploying change to absolute path
 app.config['STORMPATH_APPLICATION'] = 'PeterWakefieldSite'
 app.config['UPLOAD_FOLDER'] = DOCX_FOLDER
 
