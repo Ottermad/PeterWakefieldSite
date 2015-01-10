@@ -111,7 +111,7 @@ def send():
     sender = request.form["email"]
     subject = request.form["subject"]
     body = request.form["emailbody"]
-    message.add_to("charlie.thomas@attwoodthomas.net")
+    message.add_to("peterwakefieldwriter@gmail.com")
     message.set_from(sender)
     message.set_subject(subject)
     message.set_html(body)
