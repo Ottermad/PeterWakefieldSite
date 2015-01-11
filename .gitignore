@@ -66,6 +66,9 @@ convet.py
 markdown_to_html_test.py
 test.py
 word_markdown_test.py
+get-pip*
+__init__.py
+
 
 #Ubuntu
 .*~
