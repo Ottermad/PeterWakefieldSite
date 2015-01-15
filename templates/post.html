@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}{{ post[0][:-4] }}{% endblock %}
+{% block title %}|{{ post[0][:-4] }}{% endblock %}
 {% block body %}
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='story.css') }}">
   <!--Facebook Api Load-->
