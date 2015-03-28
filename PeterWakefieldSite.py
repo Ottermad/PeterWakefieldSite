@@ -106,7 +106,7 @@ def contact():
 # Email Sender
 @app.route('/send', methods=['POST'])
 def send():
-    sendgrid_object = sendgrid.SendGridClient("Ottermad", "OttersR0ck")
+    sendgrid_object = sendgrid.SendGridClient("", "")
     message = sendgrid.Mail()
     sender = request.form["email"]
     subject = request.form["subject"]
